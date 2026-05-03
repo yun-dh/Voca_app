@@ -2,7 +2,7 @@ const STORAGE_KEY = "three-pass-vocab.words.v1";
 const PASS_TARGET = 3;
 
 const QUIZ_MODES = {
-  all: { label: "전체 시험" },
+  all: { label: "못외운단어" },
   today: { label: "오늘 추가", daysAgo: 0 },
   yesterday: { label: "어제 추가", daysAgo: 1 },
   twoDaysAgo: { label: "그제 추가", daysAgo: 2 },
@@ -436,8 +436,15 @@ function getQuizWords(mode = "all") {
   const quizMode = QUIZ_MODES[mode] ? mode : "all";
   const daysAgo = QUIZ_MODES[quizMode].daysAgo;
 
-  if (typeof daysAgo !== "number") return learning;
+  if (quizMode === "all") {
+    return learning.filter((word) => !isRecentQuizWord(word));
+  }
+
   return learning.filter((word) => wasCreatedDaysAgo(word, daysAgo));
+}
+
+function isRecentQuizWord(word) {
+  return [0, 1, 2].some((daysAgo) => wasCreatedDaysAgo(word, daysAgo));
 }
 
 function wasCreatedDaysAgo(word, daysAgo) {
@@ -516,7 +523,7 @@ function renderStats() {
   els.learningCount.textContent = learning.length;
   els.masteredCount.textContent = mastered.length;
   els.wrongCount.textContent = wrongTotal;
-  els.quizPoolCount.textContent = `전체 ${learning.length}개 대기`;
+  els.quizPoolCount.textContent = `미통과 ${learning.length}개 대기`;
   renderQuizStartButtons();
 }
 
