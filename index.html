@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3회 통과 단어장</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">A</span>
+          <div>
+            <h1>3회 통과 단어장</h1>
+            <p>영어 단어 복습</p>
+          </div>
+        </div>
+        <div class="signature-logo" aria-label="YUN 로고">YUN</div>
+      </header>
+
+      <main class="dashboard">
+        <section class="panel add-panel" aria-labelledby="addTitle">
+          <div class="section-heading">
+            <h2 id="addTitle">단어 입력</h2>
+            <p id="formMessage" class="message" aria-live="polite"></p>
+          </div>
+
+          <form class="word-form" id="wordForm">
+            <label>
+              <span>영어 단어</span>
+              <input id="termInput" type="text" autocomplete="off" required />
+            </label>
+            <label>
+              <span>뜻</span>
+              <input id="meaningInput" type="text" autocomplete="off" required />
+            </label>
+            <label>
+              <span>메모</span>
+              <textarea id="noteInput" rows="3"></textarea>
+            </label>
+            <div class="form-actions">
+              <button class="primary-action full-width" id="saveWordButton" type="submit">저장</button>
+              <button class="secondary-action" id="cancelEdit" type="button" hidden>취소</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel quiz-panel" aria-labelledby="quizTitle">
+          <div class="section-heading">
+            <h2 id="quizTitle">단어 시험</h2>
+            <span class="pill" id="quizPoolCount">0개 대기</span>
+          </div>
+
+          <div class="quiz-empty" id="quizEmpty">
+            <p id="quizEmptyText">저장된 시험 단어가 없습니다.</p>
+            <div class="quiz-starts inline-starts" aria-label="시험 선택">
+              <button class="primary-action" data-quiz-mode="all" type="button">전체 시험</button>
+              <button class="secondary-action" data-quiz-mode="today" type="button">오늘 추가</button>
+              <button class="secondary-action" data-quiz-mode="yesterday" type="button">어제 추가</button>
+              <button class="secondary-action" data-quiz-mode="twoDaysAgo" type="button">그제 추가</button>
+            </div>
+          </div>
+
+          <div class="quiz-active" id="quizActive" hidden>
+            <div class="quiz-meta">
+              <span id="queueCount">시험 풀 0개</span>
+              <span id="currentPassState">통과 0/3</span>
+            </div>
+
+            <div class="prompt-box">
+              <span class="prompt-label">단어</span>
+              <strong id="quizTerm">word</strong>
+            </div>
+
+            <form class="answer-form" id="answerForm">
+              <label for="answerInput">뜻 입력</label>
+              <div class="answer-row">
+                <input id="answerInput" type="text" autocomplete="off" />
+                <button class="primary-action" id="submitAnswer" type="submit">확인</button>
+              </div>
+            </form>
+
+            <div class="feedback" id="feedback" hidden>
+              <p id="feedbackText"></p>
+              <div class="answer-box">
+                <span>정답</span>
+                <strong id="answerText"></strong>
+              </div>
+              <div class="feedback-actions">
+                <button class="secondary-action" id="acceptAnswer" type="button">정답으로 변경</button>
+                <button class="primary-action" id="nextQuestion" type="button">다음</button>
+              </div>
+            </div>
+
+            <div class="quiz-actions">
+              <button class="secondary-action" id="showAnswer" type="button">정답 보기</button>
+              <button class="secondary-action" id="passQuestion" type="button">패스</button>
+              <button class="ghost-action" id="endQuiz" type="button">종료</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="metrics" aria-label="단어 현황">
+          <div class="metric">
+            <span>전체</span>
+            <strong id="totalCount">0</strong>
+          </div>
+          <div class="metric">
+            <span>시험 풀</span>
+            <strong id="learningCount">0</strong>
+          </div>
+          <div class="metric">
+            <span>완료</span>
+            <strong id="masteredCount">0</strong>
+          </div>
+          <div class="metric">
+            <span>오답</span>
+            <strong id="wrongCount">0</strong>
+          </div>
+        </section>
+
+        <section class="panel word-panel" aria-labelledby="wordListTitle">
+          <div class="word-toolbar">
+            <div>
+              <h2 id="wordListTitle">단어 목록</h2>
+              <p id="listSummary">0개</p>
+            </div>
+            <div class="toolbar-controls">
+              <input id="searchInput" type="search" placeholder="검색" aria-label="단어 검색" />
+              <div class="segmented" aria-label="목록 필터">
+                <button data-filter="learning" type="button" aria-pressed="true">시험 풀</button>
+                <button data-filter="mastered" type="button" aria-pressed="false">완료</button>
+                <button data-filter="all" type="button" aria-pressed="false">전체</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="word-list" id="wordList"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
