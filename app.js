@@ -619,11 +619,7 @@ function getFilteredWords() {
         normalizeText(word.note).includes(query)
       );
     })
-    .sort((a, b) => {
-      const statusDiff = a.passCount - b.passCount;
-      if (state.filter === "learning" && statusDiff !== 0) return statusDiff;
-      return b.updatedAt - a.updatedAt;
-    });
+    .sort((a, b) => a.createdAt - b.createdAt);
 }
 
 function renderWordItem(word) {
