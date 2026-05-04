@@ -1,0 +1,27 @@
+{
+  "name": "voca_app",
+  "version": "1.0.0",
+  "description": "못 외운 영어 단어를 저장하고, 단어별 통과 횟수가 3회가 될 때까지 시험 풀에 계속 남기는 로컬 웹앱입니다.",
+  "main": "app.js",
+  "scripts": {
+    "copy:web": "cp index.html styles.css app.js www/",
+    "sync:ios": "npm run copy:web && npx cap sync ios",
+    "open:ios": "npx cap open ios"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yun-dh/Voca_app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yun-dh/Voca_app/issues"
+  },
+  "homepage": "https://github.com/yun-dh/Voca_app#readme",
+  "dependencies": {
+    "@capacitor/cli": "^8.3.1",
+    "@capacitor/core": "^8.3.1",
+    "@capacitor/ios": "^8.3.1"
+  }
+}
